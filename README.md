@@ -3,7 +3,7 @@ This is a project related to Redis and some basic functionality such as setting,
 
 What is Redis?
 
-Redis [wiki](https://en.wikipedia.org/wiki/Redis) stands for Remote Dictionary Server. Redis is a distributed, **in-memory key-value database**, cache and message broker. All of the data are stored in memory and due to it's design, Redis offers low latency reads and writes. This feature can speed up the backend and the responses of the APIs by a large amount.
+Redis [Redis at wikipedia](https://en.wikipedia.org/wiki/Redis) stands for Remote Dictionary Server. Redis is a distributed, **in-memory key-value database**, cache and message broker. All of the data are stored in memory and due to it's design, Redis offers low latency reads and writes. This feature can speed up the backend and the responses of the APIs by a large amount.
 
 Redis is often used **in conjuction** with a DBMS such as MongoDB, mySQL, MSSQL and others.
 
