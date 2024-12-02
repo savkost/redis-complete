@@ -1,0 +1,16 @@
+{
+	"redis_all_keys_retrieved_successfully": "Όλα τα κλειδιά της Redis, αντλήθηκαν επιτυχώς.",
+	"provide_key_for_search": "Παρακαλούμε προμηθεύστε το κλειδί (key).",
+	"search_in_redis_completed": "Η έρευνα για δεδομένα στη Redis, ολοκληρώθηκε επιτυχώς.",
+	"count_redis_keys_completed_successfully": "Η καταμέτρηση των κλειδιών στην Redis Cache, ολοκληρώθηκε επιτυχώς.",
+	"delete_key_in_redis_success": "Η διαγραφή του κλειδιού και των δεδομένων του από τη Redis Cache, ολοκληρώθηκε επιτυχώς.",
+	"delete_key_in_redis_error": "Παρουσιάστηκε πρόβλημα με τη διαγραφή του κλειδιού και των δεδομένων του από την Redis Cache.",
+	"all_keys_deleted_from_redis": "Όλα τα κλειδιά διαγράφηκαν επιτυχώς από την Redis Cache.",
+	"no_list_keys_for_multiple_deletion_from_redis": "Δεν βρέθηκε λίστα με τα κλειδιά των εγγράφων για πολλαπλή διαγραφή.",
+	"delete_multiple_keys_redis_success": "Η λίστα με τα κλειδιά διαγράφηκε επιτυχώς από τη Redis Cache.",
+	"missing_data_for_redis_create_key_value": "Παρακαλούμε προμηθεύστε τα απαραίτητα δεδομένα για την αποθήκευση του νέου κλειδιού σε Redis Cache.",
+	"ttl_redis_must_be_number": "Το πεδίο ttl πρέπει να είναι αριθμός.",
+	"store_data_to_redis_success": "Η αποθήκευση των δεδομένων στη Redis Cache ολοκληρώθηκε επιτυχώς.",
+	"encryption_failed": "Παρουσιάστηκε πρόβλημα κατά την κρυπτογράφηση των δεδομένων.",
+	"encryption_and_storing_successful": "Η κρυπτογράφηση των δεδομένων και αποθήκευση στην Redis Cache, ολοκληρώθηκε επιτυχώς."
+}

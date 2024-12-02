@@ -1,0 +1,16 @@
+{
+  "redis_all_keys_retrieved_successfully": "All the keys from Redis Cache, retrieved successfully.",
+  "provide_key_for_search": "Please provide the key for Redis.",
+  "search_in_redis_completed": "The search for data in Redis, completed successfully.",
+  "count_redis_keys_completed_successfully": "Counting the stored keys in Redis Cache, completed successfully.",
+  "delete_key_in_redis_success": "The deletion of the key and the relative data from the Redis Cache, completed successfully.",
+  "delete_key_in_redis_error": "An error happened in deleting the key and the relative data from the Redis Cache.",
+  "all_keys_deleted_from_redis": "All keys deleted from Redis Cache successfully.",
+  "no_list_keys_for_multiple_deletion_from_redis": "No list with keys to delete was found.",
+  "delete_multiple_keys_redis_success": "The list of keys deleted successfully from Redis Cache.",
+  "missing_data_for_redis_create_key_value": "Please provide the necessary data in order to store to Redis Cache.",
+  "ttl_redis_must_be_number": "The ttl field must be a number.",
+  "store_data_to_redis_success": "The storage of data in Redis Cache completed successfully.",
+  "encryption_failed": "An error happened during the encryption of the data.",
+  "encryption_and_storing_successful": "The encryption of the data and storage at Redis Cache, completed successfully."
+}
