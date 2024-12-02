@@ -22,6 +22,8 @@ Three things we have to keep in mind when using Redis:
 - Complete Backend API and NodeJS server with Express (MVC).
 - Redis Cache and all basic operations such as GET, SET, DEL, FLUSHALL and etc.
 - Data Encryption and Decryption with AES256 Algorithm.
+- CRON Job to remove and refresh data every 24 hours.
+- Global error handling
 - Language Translation
 
 ## Getting Started
