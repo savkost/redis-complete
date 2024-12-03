@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "4fee0f88-b358-4af6-a2c7-bb20a2ab6fe7",
+		"name": "Redis-Complete",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15303994"
+	},
+	"item": [
+		{
+			"name": "GET all Keys",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis?withTTL=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis"
+					],
+					"query": [
+						{
+							"key": "withTTL",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Specific Key Data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/random_array",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"random_array"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Decrypt Data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/decrypt/test123",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"decrypt",
+						"test123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count Stored Keys",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/count",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Specific Key",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/test_name",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"test_name"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All Keys",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/deleteAllKeys",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"deleteAllKeys"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Multiple Keys",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"listOfKeys\": [\r\n        \"test_object\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/deleteMultipleKeys",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"deleteMultipleKeys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Key-Value Data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"test_object\",\r\n    \"ttl\": 1000,\r\n    \"actualData\": {\r\n        \"test1\": \"Savvas\",\r\n        \"test2\": 89369236,\r\n        \"test3\": [\r\n            \"1\", \"2\", \"3\"\r\n        ],\r\n        \"test4\": {\r\n            \"last_name\":\"Kostoudas\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Encrypt Data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "lang",
+						"value": "el",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"test123\",\r\n    \"ttl\": 2000,\r\n    \"actualData\": {\r\n        \"created_dt\": \"2024-11-19 17:35:44\",\r\n        \"data\": {\r\n            \"_id\": \"673ccc70c5ece211949aee03\",\r\n            \"first_name\": \"Savvas\",\r\n            \"last_name\": \"Kostoudas\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/v1/redis/encrypt",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redis",
+						"encrypt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
