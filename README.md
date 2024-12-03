@@ -16,6 +16,9 @@ Three things we have to keep in mind when using Redis:
 
 - [Features](#features)
 - [Getting Started](#getting-started)
+- [Start Development](#start-dev)
+- [ENV File](#env-file)
+- [Redis Files, Important Files and Functionality](#redis-files)
 
 ## Features
 
@@ -54,3 +57,53 @@ KEYS *
 // Retrieve the stored data of the key "name"
 GET name
 ```
+
+## Start Development
+
+First of all you need to install all necessary dependencies. This can be accomplished with the command below.
+```
+npm install
+```
+Now you are ready to start the development server with the command:
+```
+npm run start
+```
+This command will start Nodemon as it is really helpful with saving and refreshing. At this point you can test the API with Postman or any other tool of your choise. In this repository, a postman collection JSON file is provided in order to have all the calls already set for you.
+
+
+## ENV File
+
+To run the development server you need to create a 'config.env' file inside the 'backend' directory. This env file will contain all necessary variables that the project needs. These variables are the following:
+```
+# AES256 ENCRYPTION --------------
+AES_256_METHOD=aes-256-cbc
+AES_SECRET_KEY=<YOUR KEY>
+AES_IV=<YOUR IV>
+
+
+# CRON JOBS ----------------------
+# --------------------------------
+REFRESH_DATA_IN_REDIS=1
+
+
+# REDIS --------------------------
+# --------------------------------
+REDIS_ENABLED=1
+REDIS_HOST=redis://127.0.0.1:
+REDIS_PORT=6380
+```
+
+Replace the <YOUR KEY> tab with your secret key for encryption and decryption. It might be a simple string key or a UUID or anything else. Replace <YOUR IV> with a string for the Initial Vector (IV) of the enryption algorithm.
+
+The rest of the env variables you can leave them as is, or you change them per your liking.
+
+## Redis Files, Important Files and Functionality
+
+In this section the Redis Files will be examined. Let's see all the important Redis Files that are included.
+
+- redis-apis.js: In this file all the supported backend routes are listed.
+- redis-handle.js: In this file all the Redis Cache functionality is listed such as initiate Redis Client, set item to Cache, retrieve data from Cache and lastly delete data from Cache.
+- redis-controller.js: In this file are listed all the methods that respond to the users requests. These methods handle the incoming requests and returns the appropriate responses.
+- cron-jobs.js: In this file the CRON jobs are listed.
+- security-methods.js: In this file all the necessary methods for encryption and decryption of the data are listed.
+- 
