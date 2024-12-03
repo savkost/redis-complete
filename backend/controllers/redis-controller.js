@@ -3,9 +3,9 @@ const {checkNecessaryCases, checkUndefinedNull, consoleHandler} = require('../co
 const AppError = require('../common-functionality/appError');
 const catchAsync = require('../common-functionality/catchAsync');
 const {checkIfRedisClientIsConnected, getAllKeysFromCache, retrieveItemFromCache, deleteItemFromCache,
-  removeAllKeysFromCache, deleteListOfItemsFromCache, setItemToCache, setItemToCacheNoTTL
+  removeAllKeysFromCache, deleteListOfItemsFromCache, setItemToCache, setItemToCacheNoTTL, constructJsonDataForStorage
 } = require("../common-functionality/redis-handler");
-const {encryptInputData} = require("../common-functionality/security-methods");
+const {encryptInputData, decryptInputData} = require("../common-functionality/security-methods");
 
 // REDIS - GET ALL KEYS
 // THIS API RETURNS ALL THE REDIS STORED KEYS
@@ -241,8 +241,11 @@ exports.encryptAndSaveData = catchAsync(async (req, res, next) => {
   // 2. Check if redis client is connected
   if (checkIfRedisClientIsConnected()){
 
-    // 3. Encrypt the data with AES256 Algorithm
-    const encryptedData = await encryptInputData(JSON.stringify(actualData));
+    // 3a. Construct the proper json data
+    const dataForEncryption = await constructJsonDataForStorage(actualData);
+
+    // 3b. Encrypt the data with AES256 Algorithm
+    const encryptedData = await encryptInputData(dataForEncryption);
     if (encryptedData.completed){
 
       // 4. Store the data into Redis Cache
@@ -281,4 +284,38 @@ exports.encryptAndSaveData = catchAsync(async (req, res, next) => {
 // REDIS - DECRYPT AND RETURN DATA
 exports.decryptAndReturnData = catchAsync(async (req, res, next) => {
 
+  // Retrieve the key from the query parameters
+  const key = req.params.key;
+  if (!checkNecessaryCases(key)){
+    return next(new AppError(translateText(req, 'provide_key_for_search'), 400));
+  }
+
+  if (checkIfRedisClientIsConnected()){
+
+    // Find Specific Data by key
+    const findDataByKey = await retrieveItemFromCache(key);
+
+    // Decrypt the found data with AES256
+    const decryptedResultResponse = await decryptInputData(findDataByKey);
+    const readyResult = JSON.parse(decryptedResultResponse.decryptedResult);
+
+    // Check the decryption completed status
+    if (decryptedResultResponse.completed){
+
+      // Return the response
+      res.status(200).json({
+        status: 200,
+        message: translateText(req, 'decryption_successful'),
+        rows: 1,
+        data: [readyResult.data]
+      });
+
+    } else {
+      // Return error response
+      return next(new AppError(translateText(req, 'decryption_failed'), 400));
+    }
+
+  } else {
+    return next(new AppError('Redis Cache is not supported or not connected.', 500));
+  }
 });

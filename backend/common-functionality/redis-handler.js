@@ -8,6 +8,28 @@ let redisClient;
 let isConnected = false;
 
 /**
+ * This method constructs the input into data of proper form for Redis Cache
+ * @param inputData
+ * @returns {Promise<string>}
+ */
+exports.constructJsonDataForStorage = async (inputData) => {
+ if (checkUndefinedNull(inputData)){
+
+     // Create the proper form data
+     const properFormData = {
+        created_dt: new Date().toISOString(),
+        data: inputData
+     };
+
+     // Return the above object as JSON stringify
+     return JSON.stringify(properFormData);
+
+ } else {
+     return null;
+ }
+}
+
+/**
  * This method creates and connects the client
  * Runs if enabled by ENV Variable
  * @type {(function(*, *, *): void)|*}

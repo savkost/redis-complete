@@ -46,7 +46,7 @@ exports.initializeEncryption = async () => {
 };
 
 /**
- *
+ * This method encrypts the input data.
  * @returns {Promise<{encryptedResult: null, operationCompletedAt: null, completed: boolean, message: string}>}
  */
 exports.encryptInputData = async (dataToEncrypt) => {
@@ -55,7 +55,7 @@ exports.encryptInputData = async (dataToEncrypt) => {
     let encryptedResultObject = {
         completed: false,
         operationCompletedAt: null,
-        message: 'Not existent input data.',
+        message: '',
         encryptedResult: null
     }
 
@@ -66,6 +66,7 @@ exports.encryptInputData = async (dataToEncrypt) => {
         const encryptedResult = Buffer.from(cipherEncryption.update(dataToEncrypt, 'utf8', 'hex')).toString('base64');
         encryptedResultObject.encryptedResult = encryptedResult;
         encryptedResultObject.operationCompletedAt = new Date();
+        encryptedResultObject.message = 'Encryption completed.'
         encryptedResultObject.completed = true;
         consoleHandler('Encrypted Result: ', encryptedResult);
 
@@ -73,7 +74,45 @@ exports.encryptInputData = async (dataToEncrypt) => {
         return encryptedResultObject;
 
     } else {
+        encryptedResultObject.message = 'Not existent input data.'
         return encryptedResultObject;
     }
 };
 
+/**
+ * This method decrypts the input data.
+ * @param dataToDecrypt
+ * @returns {Promise<{operationCompletedAt: null, completed: boolean, decryptedResult: null, message: string}>}
+ */
+exports.decryptInputData = async (dataToDecrypt) => {
+
+    // Decrypted Result Object
+    let decryptedResultObject = {
+        completed: false,
+        operationCompletedAt: null,
+        message: '',
+        decryptedResult: null
+    }
+
+    // Check the existence of the data
+    if (checkNecessaryCases(dataToDecrypt)){
+
+        // Construct a buffer from the input data
+        const bufferInputData = Buffer.from(dataToDecrypt, 'base64');
+
+        // Decrypt the received input
+        const decryptedResult = cipherDecryption.update(bufferInputData.toString('utf8'), 'hex', 'utf8');
+        decryptedResultObject.decryptedResult = decryptedResult;
+        decryptedResultObject.operationCompletedAt = new Date();
+        decryptedResultObject.message = 'Decryption completed.'
+        decryptedResultObject.completed = true;
+        consoleHandler('Decrypted Result: ', decryptedResult);
+
+        // Return the decrypted result
+        return decryptedResultObject;
+
+    } else {
+        decryptedResultObject.message = 'Not existent input data.'
+        return decryptedResultObject;
+    }
+}

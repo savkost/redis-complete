@@ -12,5 +12,7 @@
   "ttl_redis_must_be_number": "The ttl field must be a number.",
   "store_data_to_redis_success": "The storage of data in Redis Cache completed successfully.",
   "encryption_failed": "An error happened during the encryption of the data.",
-  "encryption_and_storing_successful": "The encryption of the data and storage at Redis Cache, completed successfully."
+  "encryption_and_storing_successful": "The encryption of the data and storage at Redis Cache, completed successfully.",
+  "decryption_failed": "An error happened during the decryption of the data.",
+  "decryption_successful": "The decryption of the data from Redis Cache, completed successfully."
 }
