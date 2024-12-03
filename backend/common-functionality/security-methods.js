@@ -1,5 +1,4 @@
 const crypto = require('crypto');
-const catchAsync = require("./catchAsync");
 const {consoleHandler, checkNecessaryCases} = require("./commonFunc");
 
 // Secret Key and Encryption Initial Vector (IV)
