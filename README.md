@@ -106,4 +106,3 @@ In this section the Redis Files will be examined. Let's see all the important Re
 - redis-controller.js: In this file are listed all the methods that respond to the users requests. These methods handle the incoming requests and returns the appropriate responses.
 - cron-jobs.js: In this file the CRON jobs are listed.
 - security-methods.js: In this file all the necessary methods for encryption and decryption of the data are listed.
-- 
