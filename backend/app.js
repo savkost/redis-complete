@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const globalErrorHandler = require('./common-functionality/error');
 const AppError = require('./common-functionality/appError');
-const { consoleHandler } = require('./common-functionality/commonFunc');
+const { consoleHandler, checkNecessaryCases, checkUndefinedNull} = require('./common-functionality/commonFunc');
 const i18n = require('./i18n.config');
 const cors = require("cors");
 const {initiateRedisClient} = require("./common-functionality/redis-handler");
@@ -14,6 +14,7 @@ const {initiateRedisClient} = require("./common-functionality/redis-handler");
 // Register all the routes here
 const redisAPIsRoutes = require('./routes/redis-apis');
 const {initializeEncryption} = require("./common-functionality/security-methods");
+const {startRefreshRedisDataCronJob} = require("./common-functionality/cron-jobs");
 
 /**
  * This method initiates the Redis Server
@@ -23,6 +24,19 @@ setTimeout(() => {
     // Check if Redis is available and enabled --------
     initiateRedisClient();
     // ------------------------------------------------
+
+    // Set up the CRON Jobs ------------
+    // --------------------------------
+    consoleHandler('\n-------------- CRON JOBS --------------');
+    consoleHandler(`1. Refresh data in Redis Cache: ${process.env.REFRESH_DATA_IN_REDIS}`);
+    consoleHandler('---------------------------------------\n');
+
+    // Check and start the CRON Jobs only those with '1' as value from the .env file
+    if (checkUndefinedNull(process.env.REFRESH_DATA_IN_REDIS)) {
+        if (!isNaN(Number(process.env.REFRESH_DATA_IN_REDIS)) && Number(process.env.REFRESH_DATA_IN_REDIS) === 1){
+            startRefreshRedisDataCronJob();
+        }
+    }
 
     // Initiate encryption initialization
     initializeEncryption();

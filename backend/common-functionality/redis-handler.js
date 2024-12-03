@@ -1,5 +1,4 @@
 const Redis = require('redis');
-const catchAsync = require("./catchAsync");
 const {consoleHandler, checkUndefinedNull} = require('../common-functionality/commonFunc');
 const {checkNecessaryCases} = require("./commonFunc");
 
@@ -88,7 +87,7 @@ exports.setItemToCache = async (keyTag, ttlOfData, dataToStore) => {
     consoleHandler('----------------------------------------------');
 
     // Set the data to the Redis cache
-    await redisClient.setEx(keyTag, ttlOfData, JSON.stringify(dataToStore));
+    await redisClient.setEx(keyTag, ttlOfData, dataToStore);
 }
 
 /**
@@ -105,7 +104,7 @@ exports.setItemToCacheNoTTL = async (keyTag, dataToStore) => {
     consoleHandler('----------------------------------------------');
 
     // Set the data to the Redis cache
-    await redisClient.set(keyTag, JSON.stringify(dataToStore));
+    await redisClient.set(keyTag, dataToStore);
 }
 
 /**

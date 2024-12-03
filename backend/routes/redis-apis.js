@@ -22,7 +22,7 @@ const API_LIST = {
     method: 'POST'
   },
   decrypt:{
-    path: '/decrypt',
+    path: '/decrypt/:key',
     method: 'GET'
   },
   slash: {
@@ -61,7 +61,7 @@ router
 
 router
     .route(API_LIST.decrypt.path)
-    .post(redisController.decryptAndReturnData);
+    .get(redisController.decryptAndReturnData);
 
 router
   .route(API_LIST.slash.path)

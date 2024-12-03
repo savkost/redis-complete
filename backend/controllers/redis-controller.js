@@ -54,13 +54,14 @@ exports.getSpecificKeyData = catchAsync(async (req, res, next) => {
 
     // Find Specific Data by key
     const findDataByKey = await retrieveItemFromCache(key);
+    consoleHandler('Found data in Redis: ', findDataByKey);
 
     // Return the response
     res.status(200).json({
       status: 200,
       message: translateText(req, 'search_in_redis_completed'),
       rows: checkUndefinedNull(findDataByKey)? 1 : 0,
-      data: checkUndefinedNull(findDataByKey)? [findDataByKey] : []
+      data: checkUndefinedNull(findDataByKey)? [findDataByKey.data] : []
     });
 
   } else {
@@ -84,7 +85,10 @@ exports.createKeyValue = catchAsync(async (req, res, next) => {
   // 2. Check if redis client is connected
   if (checkIfRedisClientIsConnected()){
 
-    // 3. Store the data into Redis Cache
+    // 3a. Construct the proper json data
+    const dataForStorage = await constructJsonDataForStorage(actualData);
+
+    // 3b. Store the data into Redis Cache
     if (checkUndefinedNull(ttl)){
 
       // Confirm that TTL is a number
@@ -93,11 +97,11 @@ exports.createKeyValue = catchAsync(async (req, res, next) => {
       }
 
       // Set data with TTL
-      await setItemToCache(key, ttl, actualData);
+      await setItemToCache(key, ttl, dataForStorage);
 
     } else {
       // No TTL
-      await setItemToCacheNoTTL(key, actualData);
+      await setItemToCacheNoTTL(key, dataForStorage);
     }
 
     // Return the success response
@@ -248,6 +252,8 @@ exports.encryptAndSaveData = catchAsync(async (req, res, next) => {
     const encryptedData = await encryptInputData(dataForEncryption);
     if (encryptedData.completed){
 
+      const encryptedDataForStorage = await constructJsonDataForStorage(encryptedData.encryptedResult);
+
       // 4. Store the data into Redis Cache
       if (checkUndefinedNull(ttl)){
 
@@ -257,11 +263,11 @@ exports.encryptAndSaveData = catchAsync(async (req, res, next) => {
         }
 
         // Set data with TTL
-        await setItemToCache(key, ttl, encryptedData.encryptedResult);
+        await setItemToCache(key, ttl, encryptedDataForStorage);
 
       } else {
         // No TTL
-        await setItemToCacheNoTTL(key, encryptedData.encryptedResult);
+        await setItemToCacheNoTTL(key, encryptedDataForStorage);
       }
 
       // Return the success response
@@ -296,7 +302,7 @@ exports.decryptAndReturnData = catchAsync(async (req, res, next) => {
     const findDataByKey = await retrieveItemFromCache(key);
 
     // Decrypt the found data with AES256
-    const decryptedResultResponse = await decryptInputData(findDataByKey);
+    const decryptedResultResponse = await decryptInputData(findDataByKey.data);
     const readyResult = JSON.parse(decryptedResultResponse.decryptedResult);
 
     // Check the decryption completed status

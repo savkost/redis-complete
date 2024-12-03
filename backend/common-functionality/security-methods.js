@@ -63,12 +63,17 @@ exports.encryptInputData = async (dataToEncrypt) => {
     if (checkNecessaryCases(dataToEncrypt)){
 
         // Encrypt the received input
-        const encryptedResult = Buffer.from(cipherEncryption.update(dataToEncrypt, 'utf8', 'hex')).toString('base64');
+        const encryptedResult = Buffer.from(
+            cipherEncryption.update(dataToEncrypt, 'utf8', 'hex') + cipherEncryption.final('hex')
+        ).toString('base64');
         encryptedResultObject.encryptedResult = encryptedResult;
         encryptedResultObject.operationCompletedAt = new Date();
         encryptedResultObject.message = 'Encryption completed.'
         encryptedResultObject.completed = true;
         consoleHandler('Encrypted Result: ', encryptedResult);
+
+        // Reset the cipher encryption object
+        cipherEncryption = crypto.createCipheriv(process.env.AES_256_METHOD, secretKey, encryptionIV);
 
         // Return the encrypted result
         return encryptedResultObject;
@@ -101,12 +106,15 @@ exports.decryptInputData = async (dataToDecrypt) => {
         const bufferInputData = Buffer.from(dataToDecrypt, 'base64');
 
         // Decrypt the received input
-        const decryptedResult = cipherDecryption.update(bufferInputData.toString('utf8'), 'hex', 'utf8');
+        const decryptedResult = cipherDecryption.update(bufferInputData.toString('utf8'), 'hex', 'utf8') + cipherDecryption.final('utf8');
         decryptedResultObject.decryptedResult = decryptedResult;
         decryptedResultObject.operationCompletedAt = new Date();
         decryptedResultObject.message = 'Decryption completed.'
         decryptedResultObject.completed = true;
         consoleHandler('Decrypted Result: ', decryptedResult);
+
+        // Reset the cipher decryption object
+        cipherDecryption = crypto.createDecipheriv(process.env.AES_256_METHOD, secretKey, encryptionIV);
 
         // Return the decrypted result
         return decryptedResultObject;
@@ -115,4 +123,17 @@ exports.decryptInputData = async (dataToDecrypt) => {
         decryptedResultObject.message = 'Not existent input data.'
         return decryptedResultObject;
     }
+}
+
+/**
+ * This method creates a random hex of 32 bytes
+ * @returns {Promise<string>}
+ */
+exports.createRandomHex = async () => {
+
+    // Create random bytes using crypto
+    const generatedRandomBytes = await crypto.randomBytes(32);
+
+    // Console and return the generated random data
+    return generatedRandomBytes.toString('hex');
 }
